@@ -1,0 +1,178 @@
+<!-- layout 1 -->
+<%- include('layout1'); -%>
+
+<!-- add CSS here -->
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
+<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+<!-- layout 2 -->
+<%- include('layout2'); -%>
+
+<!-- START BODY -->
+
+<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+
+
+
+    <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding-top: 0;">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row">
+                    <div class="col-sm-12 col-md-5" style="margin-bottom: auto; margin-top: auto">
+                        <h4 style="margin: 0"><%= calendar.semester.name %></h4>
+                    </div>
+                    <div class="col-sm-12 col-md-7" style="text-align: right">
+                        <button id="printButton" class="btn btn-brand btn-elevate btn-pill btn-sm"><i
+                                class="fa fa-print"></i> In
+                            kết quả</button>
+                        <button class="btn btn-success btn-elevate btn-pill btn-sm" id="btn-export"
+                            style="margin-left: 10px;" onclick="exportHTML();"><i class="fa fa-file-export"></i> Xuất
+                            kết quả ra
+                            Word</button>
+                    </div>
+                </div>
+            </div>
+            <div id="source-html" class="card-body">
+                <table style="width: 100%; border: none; border-collapse: collapse; margin-top: 30px;">
+                    <tbody>
+                        <tr>
+                            <td>Mã học phần</td>
+                            <td><b><%= calendar.course.courseId %></b></td>
+                            <td>Môn thi</td>
+                            <td><b><%= calendar.course.name %></b></td>
+                            <td>Ngày thi</td>
+                            <td><b><%= calendar.examDate.eDate %></b></td>
+                        </tr>
+                        <tr>
+                            <td>Giờ thi</td>
+                            <td><b><%= calendar.examDate.eTime %></b></td>
+                            <td>Phòng thi</td>
+                            <td><b><%= calendar.room.name %></b></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-bordered" style="width: 100%; margin-top: 30px">
+
+                    <thead>
+                        <tr>
+                            <th style="font-weight: bold;">Mã sinh viên</th style="font-weight: bold;">
+                            <th style="font-weight: bold;">Họ tên</th>
+                            <th style="font-weight: bold;">Ngày sinh</th>
+                            <th style="font-weight: bold;">Lớp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>17020720</td>
+                            <td>Nguyễn Thị Hồng Hạnh</td>
+                            <td>11/08/1999</td>
+                            <td>QH-2017-I/CQ-CD</td>
+                        </tr>
+                        <tr>
+                            <td>17021178</td>
+                            <td>Trần Trường Thủy</td>
+                            <td>11/08/1999</td>
+                            <td>QH-2017-I/CQ-CD</td>
+                        </tr>
+                        <tr>
+                            <td>17020874</td>
+                            <td>Đoàn Thị Mai</td>
+                            <td>05/02/1999</td>
+                            <td>QH-2017-I/CQ-J</td>
+                        </tr>
+                        <tr>
+                            <td>16021221</td>
+                            <td>Lương Ngọc Tùng </td>
+                            <td>25/08/1998</td>
+                            <td>QH-2016-I/CQ-CB</td>
+                        </tr>
+                        <!--  -->
+                        <tr>
+                            <td>19021000</td>
+                            <td>Nguyễn Khánh Linh</td>
+                            <td>12/03/2000</td>
+                            <td>QH-2017-I/CQ-CD</td>
+                        </tr>
+                        <tr>
+                            <td>17021178</td>
+                            <td>Trần Trường Thủy</td>
+                            <td>11/08/1999</td>
+                            <td>QH-2017-I/CQ-CD</td>
+                        </tr>
+                        <tr>
+                            <td>16021091</td>
+                            <td>Nguyễn Văn Phúc</td>
+                            <td>28/02/1998 </td>
+                            <td>QH-2016-I/CQ-J</td>
+                        </tr>
+                        <tr>
+                            <td>16021003</td>
+                            <td>Nguyễn Thị Huyền</td>
+                            <td>12/04/1998</td>
+                            <td>QH-2016-I/CQ-CD</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
+
+
+<!-- END BODY -->
+
+<!-- layout 3 -->
+<%- include('layout3'); -%>
+
+<!-- add JAVASCRIPT here -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+    function print() {
+        printJS({
+            printable: 'source-html',
+            type: 'html',
+            targetStyles: ['*']
+        })
+    }
+    document.getElementById('printButton').addEventListener("click", print)
+
+    function exportHTML() {
+        var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
+            "xmlns:w='urn:schemas-microsoft-com:office:word' " +
+            "xmlns='http://www.w3.org/TR/REC-html40'>" +
+            "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><body>";
+        var footer = "</body></html>";
+        var sourceHTML = header + document.getElementById("source-html").innerHTML + footer;
+
+        var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+        var fileDownload = document.createElement("a");
+        document.body.appendChild(fileDownload);
+        fileDownload.href = source;
+        fileDownload.download = 'document.doc';
+        fileDownload.click();
+        document.body.removeChild(fileDownload);
+    }
+</script>
+
+<!-- end view -->
+</body>
+
+</html>

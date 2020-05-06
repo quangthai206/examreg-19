@@ -1,0 +1,408 @@
+<!-- layout 1 -->
+<%- include('layout1'); -%>
+
+<!-- add CSS here -->
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+<!-- layout 2 -->
+<%- include('layout2'); -%>
+
+<!-- START BODY -->
+
+<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+
+
+
+    <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding-top: 0;">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row">
+                    <div class="col-sm-12 col-md-5" style="margin-bottom: auto; margin-top: auto">
+                        <h4 style="margin: 0">Quản lý sinh viên</h4>
+                    </div>
+                    <div class="col-sm-12 col-md-7" style="text-align: right">
+                        <button style="color: white" class="btn btn-success" data-target="#addStudentModal"
+                            data-toggle="modal"><i class="flaticon2-plus"></i> Thêm sinh viên</button>
+                        <button class="btn btn-secondary" data-target="#importStudentModal" data-toggle="modal"><i
+                                class="fa fa-upload"></i> Import</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered" id="studentTable" style="width:100%"
+                        cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Mã sinh viên</th>
+                                <th>Họ và tên</th>
+                                <th>Ngày sinh</th>
+                                <th>Lớp</th>
+                                <th>Tùy chọn</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD STUDENT -->
+    <div data-keyboard="false" data-backdrop="static" id="addStudentModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="addStudentForm">
+                    <div class="modal-header">
+                        <h4 class="modal-title" style="font-weight: bold;">Thêm mới sinh viên</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="inputId">Mã sinh viên</label>
+                            <input type="text" name="sid" id="inputId" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputName">Họ và tên</label>
+                            <input type="text" name="name" id="inputName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputBirthday">Ngày sinh</label>
+                            <input type="text" name="birthday" id="inputBirthday" class="form-control"
+                                placeholder="dd/mm/yyyy" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputClass">Lớp</label>
+                            <input type="text" name="class" id="inputClass" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
+                        <input type="submit" class="btn btn-success" value="Đồng ý">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- EDIT STUDENT -->
+    <div data-keyboard="false" data-backdrop="static" id="editStudentModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="editStudentForm">
+                    <div class="modal-header">
+                        <h4 class="modal-title" style="font-weight: bold;">Cập nhật sinh viên</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="inputId2">Mã sinh viên</label>
+                            <input type="text" name="sid" id="inputId2" class="form-control" required readonly
+                                style="font-weight: bold;">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputName2">Họ và tên</label>
+                            <input type="text" name="name" id="inputName2" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputBirthday2">Ngày sinh</label>
+                            <input type="text" name="birthday" id="inputBirthday2" class="form-control"
+                                placeholder="dd/mm/yyyy" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputClass2">Lớp</label>
+                            <input type="text" name="class" id="inputClass2" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
+                        <input type="submit" class="btn btn-success" value="Đồng ý">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- IMPORT STUDENT -->
+    <div data-keyboard="false" data-backdrop="static" id="importStudentModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="font-weight: bold;">Import dữ liệu bằng excel (.xlsx, xls)</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <p>Chọn file cần import dữ liệu, hệ thống sẽ tự động cập nhật sau vài giây.</p>
+                        <div class="custom-file">
+                            <form id="importStudentForm">
+                                <input type="file" class="custom-file-input" id="customFile" accept=".xls, .xlsx">
+                            </form>
+                            <label class="custom-file-label" for="customFile">Chọn file</label>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- END BODY -->
+
+<!-- layout 3 -->
+<%- include('layout3'); -%>
+
+<!-- add JAVASCRIPT here -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script src="/js/xlsx.full.min.js"></script>
+<script>
+    let Popup, dataTable;
+    $(document).ready(function () {
+        dataTable = $("#studentTable").DataTable({
+            "ajax": {
+                "url": "/admin/getAllStudents",
+                "type": "GET",
+                "datatype": "json"
+            },
+            "columns": [{
+                    "data": "sid"
+                },
+                {
+                    "data": "name"
+                },
+                {
+                    "data": (row, type, val, meta) =>
+                        row.birthday == null ? "???" : row.birthday
+                },
+                {
+                    "data": (row, type, val, meta) =>
+                        row.class == null ? "???" : row.class
+                },
+                {
+                    "data": "sid",
+                    "render": function (data, type, row, meta) {
+                        return `<button style='color: white' onclick='editButtonClicked("${row.sid}", "${row.name}", "${row.birthday}", "${row.class}")' data-target='#editStudentModal' data-toggle='modal' class='btn btn-info btn-sm'><i class='flaticon2-edit'></i> Sửa</button><button class='btn btn-danger btn-sm' style='margin-left: 5px; color: white' onclick='deleteStudent("${data}")'><i class='flaticon-delete'></i> Xóa</button>`;
+                    },
+                    "orderable": false,
+                    "width": "150px",
+                    "searchable": false
+                }
+            ],
+            "language": {
+                "sProcessing": "Đang xử lý...",
+                "sLengthMenu": "Xem _MENU_ mục",
+                "sZeroRecords": "Không tìm thấy kết quả phù hợp",
+                "sEmptyTable": "Không có dữ liệu trong bảng",
+                "sInfo": "Đang xem _START_ đến _END_ trong tổng số _TOTAL_ mục",
+                "sInfoFiltered": "(được lọc từ _MAX_ mục)",
+                "sInfoEmpty": "Đang xem 0 đến 0 trong tổng số 0 mục",
+                "sSearch": "Tìm kiếm:",
+                "oPaginate": {
+                    "sFirst": "Đầu tiên",
+                    "sLast": "Cuối cùng",
+                    "sNext": "Sau",
+                    "sPrevious": "Trước"
+                },
+            }
+        });
+
+
+    });
+</script>
+
+<script>
+    $('#addStudentModal').on('hide.bs.modal', () => {
+        document.getElementById("addStudentForm").reset();
+    });
+
+    $("#addStudentForm").submit(function (e) {
+        e.preventDefault();
+
+        const formData = new FormData($('#addStudentForm')[0]);
+        let jsonObject = {};
+
+        for (const [key, value] of formData.entries()) {
+            jsonObject[key] = value;
+        }
+        $.ajax({
+            url: '/admin/students',
+            type: 'POST',
+            data: JSON.stringify(jsonObject),
+            datatype: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data.status === 'success') {
+                    dataTable.ajax.reload();
+                    $.notify({
+                        message: data.message
+                    }, {
+                        type: 'success'
+                    });
+                } else {
+                    $.notify({
+                        message: data.message
+                    }, {
+                        type: 'danger'
+                    });
+                }
+                $('#addStudentModal').modal('toggle');
+            }
+        });
+
+    });
+
+    function editButtonClicked(sid, name, birthday, sclass) {
+        $('#inputId2').val(sid);
+        $('#inputName2').val(name);
+        $('#inputBirthday2').val(birthday);
+        $('#inputClass2').val(sclass);
+    }
+
+    $("#editStudentForm").submit(function (e) {
+        e.preventDefault();
+
+        const formData = new FormData($('#editStudentForm')[0]);
+        let jsonObject = {};
+
+        for (const [key, value] of formData.entries()) {
+            jsonObject[key] = value;
+        }
+
+        $.ajax({
+            url: '/admin/students/' + jsonObject.sid,
+            type: 'PATCH',
+            data: JSON.stringify(jsonObject),
+            datatype: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data.status === 'success') {
+                    dataTable.ajax.reload();
+                    $.notify({
+                        message: data.message
+                    }, {
+                        type: 'success'
+                    });
+                } else {
+                    $.notify({
+                        message: data.message
+                    }, {
+                        type: 'danger'
+                    });
+                }
+                $('#editStudentModal').modal('toggle');
+            }
+        });
+
+    });
+
+
+    function deleteStudent(sid) {
+        bootbox.confirm({
+            closeButton: false,
+            title: "Xóa sinh viên",
+            message: "Bạn có chắc chắn muốn xóa sinh viên này không?",
+            buttons: {
+                cancel: {
+                    label: '<i class="flaticon2-delete"></i> Hủy bỏ',
+                    className: 'btn btn-secondary bootbox-cancel'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> Đồng ý'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "/admin/students/" + sid,
+                        success: function (response) {
+                            if (response.status === "success") {
+                                dataTable.ajax.reload();
+                                $.notify({
+                                    message: response.message
+                                }, {
+                                    type: 'success'
+                                });
+
+                            } else {
+                                $.notify({
+                                    message: response.message
+                                }, {
+                                    type: 'danger'
+                                });
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+    }
+
+    $("#customFile").change(function (evt) {
+        var selectedFile = evt.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            var data = event.target.result;
+            var workbook = XLSX.read(data, {
+                type: 'binary'
+            });
+            workbook.SheetNames.forEach(function (sheetName) {
+
+                var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook
+                    .Sheets[sheetName]);
+                var json_object = JSON.stringify(XL_row_object);
+                console.log(XL_row_object);
+
+                console.log(json_object);
+
+                // AJAX CALL
+                $.ajax({
+                    url: "/admin/students/import",
+                    type: "POST",
+                    data: json_object,
+                    contentType: 'application/json',
+                    success: function (data) {
+                        setTimeout(() => {
+                            dataTable.ajax.reload();
+                        }, 2000);
+                        Swal.fire(
+                            'Hoàn tất!',
+                            'Thêm thành công: ' + (XL_row_object.length -
+                                data.countFail) + '/' + XL_row_object.length,
+                            'success'
+                        )
+                    }
+                });
+
+            })
+        };
+        reader.onerror = function (event) {
+            console.error("File could not be read! Code " + event.target.error.code);
+        };
+        reader.readAsBinaryString(selectedFile);
+
+        $('#importStudentModal').modal('toggle');
+
+        $('#importStudentForm')[0].reset();
+
+    });
+</script>
+
+<!-- end view -->
+</body>
+
+</html>

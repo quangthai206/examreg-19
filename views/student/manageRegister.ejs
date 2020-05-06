@@ -1,0 +1,130 @@
+<!-- layout 1 -->
+<%- include('layout1'); -%>
+
+<!-- add CSS here -->
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+<!-- layout 2 -->
+<%- include('layout2'); -%>
+
+<!-- START BODY -->
+
+<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+
+
+
+    <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding-top: 0;">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row">
+                    <div class="col-sm-12 col-md-5" style="margin-bottom: auto; margin-top: auto">
+                        <h4 style="margin: 0">Học phần đủ điều kiện dự thi</h4>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="kt-section">
+                    <div class="kt-section__content">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Mã học phần</th>
+                                    <th>Tên học phần</th>
+                                    <th>Giảng viên</th>
+                                    <th>Số tín chỉ</th>
+                                    <th>Tùy chọn</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% courses.forEach(item => { %>
+                                <% if(item.status === true) { %>
+                                <tr>
+                                    <th scope="row"><%= i %></th>
+                                    <td><%= item.course.courseId %></td>
+                                    <td><%= item.course.name %></td>
+                                    <td><%= item.course.teacher %></td>
+                                    <td><%= item.course.credits %></td>
+                                    <td><a href="/student/register/<%= item.course._id %>" style="color: white;"
+                                            type="button" class="btn btn-success btn-sm">Xem chi tiết</a></td>
+                                </tr>
+                                <% i++ %>
+                                <% } %>
+                                <% }) %>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row">
+                    <div class="col-sm-12 col-md-5" style="margin-bottom: auto; margin-top: auto">
+                        <h4 style="margin: 0">Học phần không đủ điều kiện dự thi</h4>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="kt-section">
+                    <div class="kt-section__content">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Mã học phần</th>
+                                    <th>Tên học phần</th>
+                                    <th>Giảng viên</th>
+                                    <th>Số tín chỉ</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% courses.forEach(item => { %>
+                                <% if(item.status === false) { %>
+                                <tr>
+                                    <th scope="row"><%= j %></th>
+                                    <td><%= item.course.courseId %></td>
+                                    <td><%= item.course.name %></td>
+                                    <td><%= item.course.teacher %></td>
+                                    <td><%= item.course.credits %></td>
+                                    <td><i style="color: red;" class="flaticon2-delete"></i></td>
+                                </tr>
+                                <% j++ %>
+                                <% } %>
+                                <% }) %>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+<!-- END BODY -->
+
+<!-- layout 3 -->
+<%- include('layout3'); -%>
+
+<!-- add JAVASCRIPT here -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+
+<!-- end view -->
+</body>
+
+</html>

@@ -1,0 +1,328 @@
+<!-- layout 1 -->
+<%- include('layout1'); -%>
+
+<!-- add CSS here -->
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+<!-- layout 2 -->
+<%- include('layout2'); -%>
+
+<!-- START BODY -->
+
+<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+
+
+
+    <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding-top: 0;">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <div class="row">
+                    <div class="col-sm-12 col-md-5" style="margin-bottom: auto; margin-top: auto">
+                        <h4 style="margin: 0"><%= courseName %> - <%= courseId %></h4>
+                    </div>
+                    <div class="col-sm-12 col-md-7" style="text-align: right">
+                        <button style="color: white" class="btn btn-success" data-target="#importRegisterModal"
+                            data-toggle="modal"><i class="flaticon2-plus"></i> Import sinh viên đủ điều kiện </button>
+                        <button style="margin-left: 10px" class="btn btn-outline-brand btn-elevate btn-square"
+                            data-target="#importNotRegisterModal" data-toggle="modal"><i class="fa fa-upload"></i>
+                            Import
+                            sinh viên không đủ điều
+                            kiện</button>
+                        <button id="deleteAllButton" style="margin-left: 10px" class="btn btn-danger"><i
+                                class="flaticon-delete"></i> Xóa dữ
+                            liệu</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered" id="studentTable" style="width:100%"
+                        cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Mã sinh viên</th>
+                                <th>Họ và tên</th>
+                                <th>Ngày sinh</th>
+                                <th>Lớp</th>
+                                <th>Đủ điều kiện dự thi</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- IMPORT STUDENT CAN REGISTER -->
+    <div data-keyboard="false" data-backdrop="static" id="importRegisterModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="font-weight: bold;">Import sinh viên đủ điều kiện thi (.xlsx, xls)
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <p>Chọn file cần import dữ liệu, hệ thống sẽ tự động cập nhật sau vài giây.</p>
+                        <div class="custom-file">
+                            <form id="importRegisterForm">
+                                <input type="file" class="custom-file-input" id="customFile1" accept=".xls, .xlsx">
+                            </form>
+                            <label class="custom-file-label" for="customFile1">Chọn file</label>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- IMPORT STUDENT CANNOT REGISTER -->
+    <div data-keyboard="false" data-backdrop="static" id="importNotRegisterModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="font-weight: bold;">Import sinh viên không đủ điều kiện thi (.xlsx,
+                        xls)</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <p>Chọn file cần import dữ liệu, hệ thống sẽ tự động cập nhật sau vài giây.</p>
+                        <div class="custom-file">
+                            <form id="importNotRegisterForm">
+                                <input type="file" class="custom-file-input" id="customFile2" accept=".xls, .xlsx">
+                            </form>
+                            <label class="custom-file-label" for="customFile2">Chọn file</label>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<input type="hidden" name="courseId" id="courseId" value="<%= courseId %>">
+
+<!-- END BODY -->
+
+<!-- layout 3 -->
+<%- include('layout3'); -%>
+
+<!-- add JAVASCRIPT here -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script src="/js/xlsx.full.min.js"></script>
+<script>
+    let Popup, dataTable;
+    const courseId = document.getElementById("courseId").value;
+    $(document).ready(function () {
+        dataTable = $("#studentTable").DataTable({
+            "ajax": {
+                "url": "/admin/courses/" + courseId + "/getAllStudents",
+                "type": "GET",
+                "datatype": "json"
+            },
+            'columnDefs': [{
+                "targets": 4,
+                "className": "text-center"
+            }],
+            "columns": [{
+                    "data": "student.sid"
+                },
+                {
+                    "data": "student.name"
+                },
+                {
+                    "data": (row, type, val, meta) =>
+                        row.student.birthday == null ? "" : row.student.birthday
+                },
+                {
+                    "data": (row, type, val, meta) =>
+                        row.student.class == null ? "" : row.student.class
+                },
+                {
+                    "data": "status",
+                    "render": function (data, type, row, meta) {
+                        if (data === true) {
+                            return `<button style='color: white; width: 60px' class='btn btn-success btn-sm'>Có</button>`;
+                        } else {
+                            return `<button style='color: white; width: 60px' class='btn btn-danger btn-sm'>Không</button>`
+                        }
+                    },
+                    "width": "20em"
+
+                }
+            ],
+            "language": {
+                "sProcessing": "Đang xử lý...",
+                "sLengthMenu": "Xem _MENU_ mục",
+                "sZeroRecords": "Không tìm thấy kết quả phù hợp",
+                "sEmptyTable": "Không có dữ liệu trong bảng",
+                "sInfo": "Đang xem _START_ đến _END_ trong tổng số _TOTAL_ mục",
+                "sInfoFiltered": "(được lọc từ _MAX_ mục)",
+                "sInfoEmpty": "Đang xem 0 đến 0 trong tổng số 0 mục",
+                "sSearch": "Tìm kiếm:",
+                "oPaginate": {
+                    "sFirst": "Đầu tiên",
+                    "sLast": "Cuối cùng",
+                    "sNext": "Sau",
+                    "sPrevious": "Trước"
+                },
+            }
+        });
+
+
+    });
+</script>
+
+<script>
+    document.getElementById("deleteAllButton").addEventListener("click", () => {
+        bootbox.confirm({
+            closeButton: false,
+            title: "Xóa sinh viên",
+            message: "Bạn có chắc chắn muốn xóa tất cả sinh viên khỏi học phần này không?",
+            buttons: {
+                cancel: {
+                    label: '<i class="flaticon2-delete"></i> Hủy bỏ',
+                    className: 'btn btn-secondary bootbox-cancel'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> Đồng ý'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "/admin/courses/" + courseId + "/deleteAllStudents",
+                        success: function (response) {
+                            dataTable.ajax.reload();
+                            Swal.fire(
+                                response.message,
+                                'Bạn có thể thêm dữ liệu lại bằng cách import bằng file excel!',
+                                'success'
+                            )
+                        }
+                    });
+                }
+            }
+        });
+    })
+
+    $("#customFile1").change(function (evt) {
+        var selectedFile = evt.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            var data = event.target.result;
+            var workbook = XLSX.read(data, {
+                type: 'binary'
+            });
+            workbook.SheetNames.forEach(function (sheetName) {
+
+                var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook
+                    .Sheets[sheetName]);
+                var json_object = JSON.stringify(XL_row_object);
+                console.log(XL_row_object);
+
+                console.log(json_object);
+
+                // AJAX CALL
+                $.ajax({
+                    url: "/admin/courses/" + courseId + "/importRegister",
+                    type: "POST",
+                    data: json_object,
+                    contentType: 'application/json',
+                    success: function (data) {
+                        setTimeout(() => {
+                            dataTable.ajax.reload();
+                        }, 2000);
+                        Swal.fire(
+                            'Hoàn tất!',
+                            data.message,
+                            'success'
+                        )
+                    }
+                });
+
+            })
+        };
+        reader.onerror = function (event) {
+            console.error("File could not be read! Code " + event.target.error.code);
+        };
+        reader.readAsBinaryString(selectedFile);
+
+        $('#importRegisterModal').modal('toggle');
+
+        $('#importRegisterForm')[0].reset();
+
+    });
+
+    $("#customFile2").change(function (evt) {
+        var selectedFile = evt.target.files[0];
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            var data = event.target.result;
+            var workbook = XLSX.read(data, {
+                type: 'binary'
+            });
+            workbook.SheetNames.forEach(function (sheetName) {
+
+                var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook
+                    .Sheets[sheetName]);
+                var json_object = JSON.stringify(XL_row_object);
+                console.log(XL_row_object);
+
+                console.log(json_object);
+
+                // AJAX CALL
+                $.ajax({
+                    url: "/admin/courses/" + courseId + "/importNotRegister",
+                    type: "POST",
+                    data: json_object,
+                    contentType: 'application/json',
+                    success: function (data) {
+                        setTimeout(() => {
+                            dataTable.ajax.reload();
+                        }, 2000);
+                        Swal.fire(
+                            'Hoàn tất!',
+                            data.message,
+                            'success'
+                        )
+                    }
+                });
+
+            })
+        };
+        reader.onerror = function (event) {
+            console.error("File could not be read! Code " + event.target.error.code);
+        };
+        reader.readAsBinaryString(selectedFile);
+
+        $('#importNotRegisterModal').modal('toggle');
+
+        $('#importNotRegisterForm')[0].reset();
+
+    });
+</script>
+
+<!-- end view -->
+</body>
+
+</html>

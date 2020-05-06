@@ -1,0 +1,195 @@
+<!-- layout 1 -->
+<%- include('layout1'); -%>
+
+<!-- add CSS here -->
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
+<style>
+    #kt_wrapper {
+        background-color: white;
+    }
+</style>
+
+<!-- layout 2 -->
+<%- include('layout2'); -%>
+
+<!-- START BODY -->
+
+<div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+
+
+
+    <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content" style="padding-top: 0;">
+        <div class="content-footer">
+            <button id="printButton" class="btn btn-brand btn-elevate btn-pill btn-sm" style="margin-bottom: 20px"><i
+                    class="fa fa-print"></i> In
+                kết quả</button>
+            <button style="margin-bottom: 20px; " class="btn btn-success btn-elevate btn-pill btn-sm" id="btn-export"
+                onclick="exportHTML();"><i class="fa fa-file-export"></i> Xuất kết quả ra Word</button>
+
+        </div>
+        <div class="card shadow mb-4">
+
+            <div class="print-area" id="source-html">
+                <table style="width: 100%; border: none; border-collapse: collapse; ">
+                    <tbody>
+                        <tr>
+                            <td style="width: 40%; text-align: center; vertical-align: top;">
+                                <p
+                                    style="text-transform: uppercase; font-weight: normal; margin: 0; padding: 0; font-size: 12pt;">
+                                    ĐẠI HỌC QUỐC GIA HÀ NỘI</p>
+                                <p
+                                    style="text-transform:uppercase; margin: 0; padding: 0; font-size:12pt; font-weight:bold;">
+                                    TRƯỜNG ĐẠI HỌC CÔNG NGHỆ</p>
+                            </td>
+                            <td style="width: 60%; text-align: center; vertical-align: top;">
+                                <p
+                                    style="text-transform: uppercase; font-weight: bold; margin: 0; padding: 0; font-size: 12pt;">
+                                    CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
+                                <p style="margin: 0; padding: 0; font-weight: bold;">Độc lập - Tự do - Hạnh phúc</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h1
+                    style="text-align: center; text-transform: uppercase; font-weight: bold; font-size: 14pt; margin: 30px 0 0 0; padding: 0;">
+                    KẾT QUẢ ĐĂNG KÝ LỊCH THI - HỌC KỲ I NĂM HỌC 2019-2020</h1>
+                <p style="text-align: center; font-weight: bold; margin: 0; padding: 0; font-size: 14pt;">
+                    Ngày 24 tháng 12 năm 2019
+                </p>
+                <table style="width: 100%; border: none; border-collapse: collapse; margin-top: 30px;">
+                    <tbody>
+                        <tr>
+                            <td>Họ và tên</td>
+                            <td><b>Lại Quang Thái</b></td>
+                            <td>Ngày sinh</td>
+                            <td><b>20/06/1999</b></td>
+                            <td>Mã sinh viên</td>
+                            <td><b>17021011</b></td>
+                        </tr>
+                        <tr>
+                            <td>Chương trình đào tạo</td>
+                            <td><b>Công nghệ Thông tin</b></td>
+                            <td>Khóa</td>
+                            <td><b>QH-2017-I/CQ</b></td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <br>
+                <table class="table table-bordered" style="width: 100%;">
+
+                    <thead>
+                        <tr>
+                            <th style="font-weight: bold;">STT</th style="font-weight: bold;">
+                            <th style="font-weight: bold;">Mã học phần</th>
+                            <th style="font-weight: bold;">Môn thi</th>
+                            <th style="font-weight: bold;">Ngày thi</th>
+                            <th style="font-weight: bold;">Giờ thi</th>
+                            <th style="font-weight: bold;">Thời gian thi (phút)</th>
+                            <th style="font-weight: bold;">Phòng thi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>INT3306-3</td>
+                            <td>Phát triển ứng dụng Web</td>
+                            <td>24/12/2019</td>
+                            <td>07:30</td>
+                            <td>90</td>
+                            <td>308-GĐ2</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>INT3310-01</td>
+                            <td>Quản trị mạng</td>
+                            <td>30/12/2019</td>
+                            <td>15:30</td>
+                            <td>60</td>
+                            <td>306-GĐ2</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <table style="width: 100%; border: none; border-collapse: collapse; margin-top: 30px;">
+                    <tbody>
+                        <tr>
+                            <td style="width: 50%; vertical-align: top; text-align: center;">
+                                <p
+                                    style="font-weight: bold; margin: 0; padding: 0; font-size: 12pt; text-transform:uppercase;">
+                                    SINH VIÊN</p>
+                                <p style="margin: 0; padding: 0; font-size: 11pt; font-style: italic;">(Ký và ghi rõ họ
+                                    tên)</p>
+                                <p style="margin-top:80px;"><b>Lại Quang Thái</b></p>
+                            </td>
+                            <td style="width: 50%; text-align: center; vertical-align: top; ">
+                                <p style="font-size: 12pt; margin:0; padding:0;">Hà Nội, ngày ..... tháng ..... năm 2019
+                                </p>
+                                <p
+                                    style="font-weight: bold; margin: 0; padding: 0; text-transform: uppercase; font-size: 12pt;">
+                                    XÁC NHẬN CỦA PHÒNG ĐÀO TẠO</p>
+                                <p style="font-weight: bold; margin-top: 80px;">&nbsp;</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+<!-- END BODY -->
+
+<!-- layout 3 -->
+<%- include('layout3'); -%>
+
+<!-- add JAVASCRIPT here -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+</script>
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+
+<script>
+    function print() {
+        printJS({
+            printable: 'source-html',
+            type: 'html',
+            targetStyles: ['*']
+        })
+    }
+    document.getElementById('printButton').addEventListener("click", print)
+
+    function exportHTML() {
+        var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
+            "xmlns:w='urn:schemas-microsoft-com:office:word' " +
+            "xmlns='http://www.w3.org/TR/REC-html40'>" +
+            "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><body>";
+        var footer = "</body></html>";
+        var sourceHTML = header + document.getElementById("source-html").innerHTML + footer;
+
+        var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+        var fileDownload = document.createElement("a");
+        document.body.appendChild(fileDownload);
+        fileDownload.href = source;
+        fileDownload.download = 'document.doc';
+        fileDownload.click();
+        document.body.removeChild(fileDownload);
+    }
+</script>
+
+<!-- end view -->
+</body>
+
+</html>
