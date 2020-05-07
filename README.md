@@ -33,6 +33,6 @@ The system has 2 user roles: administrator, student.
 
 I have deployed the application on Heroku [here](https://glacial-ridge-02351.herokuapp.com/).  
 For admin role, use username: admin@examreg.com, password: 123456.  
-For student role, use username: student1@examreg.com, password: 123456.
+For student role, use username: 17021011@examreg.com, password: 123456.
 
 ** Note: Honestly, because of some issues, I built this application within 5 days to meet the deadline. So there are some incomplete features as well as a few bugs, please report any issues or feedback to [facebook](https://www.facebook.com/quangthai206) or email me at laiquangthai206@gmail.com. 
